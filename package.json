@@ -18,7 +18,9 @@
   "homepage": "https://github.com/RDAxRoadkill/TweeterTs#readme",
   "dependencies": {
     "@types/node": "^11.9.0",
+    "chai-http": "^4.2.1",
     "express": "^4.16.4",
+    "mongoose": "^5.4.11",
     "nodemon": "^1.18.10",
     "ts-node": "^3.0.2",
     "typescript": "^3.3.3"
