@@ -1,4 +1,5 @@
 import express = require("express");
+import {index} from './controllers/message_controller';
 let router = express.Router();
 import { register } from './controllers/auth_controller';
 
@@ -23,5 +24,6 @@ router.route('/login')
 
     });
 
+router.get('/message', index);
 
 export default router;
