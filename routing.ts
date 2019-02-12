@@ -1,4 +1,5 @@
 import express = require("express");
+import {index} from './controllers/message_controller';
 let router = express.Router();
 
 router.route('/')
@@ -22,5 +23,6 @@ router.route('/login')
 
     });
 
+router.get('/message', index);
 
 export default router;
