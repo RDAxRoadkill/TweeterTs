@@ -22,7 +22,14 @@ router.route('/login')
     .post(function (req: any, res: any) {
 
     });
+router.route('/404')
+    .get(function (req: any, res: any) {
+        res.sendFile(__dirname + '/templates/404.html');
+    })
+    .post(function (req: any, res: any) {
 
+    });
+    
 router.get('/message', index);
 
 export default router;
