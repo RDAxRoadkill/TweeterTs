@@ -18,6 +18,7 @@
   "homepage": "https://github.com/RDAxRoadkill/TweeterTs#readme",
   "dependencies": {
     "@types/node": "^11.9.0",
+    "body-parser": "^1.18.3",
     "chai-http": "^4.2.1",
     "express": "^4.16.4",
     "mongoose": "^5.4.11",
