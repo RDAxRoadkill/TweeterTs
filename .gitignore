@@ -1,2 +1,3 @@
-app_modules
+node_modules
 .env
+templates/404.html
