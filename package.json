@@ -28,6 +28,8 @@
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
+    "@types/mongodb": "^3.1.19",
+    "@types/mongoose": "^5.3.12",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "ts-node": "^8.0.2"
