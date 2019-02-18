@@ -1,7 +1,7 @@
 import express = require("express");
 import {list, create} from './controllers/message_controller';
 let router = express.Router();
-import { register } from './controllers/auth_controller';
+import { register, login } from './controllers/auth_controller';
 
 router.route('/')
     .get(function (req: any, res: any) {
@@ -13,7 +13,7 @@ router.route('/register')
         res.sendFile(__dirname + '/templates/register.html');
     })
     .post(function (req: any, res: any) {
-        register(req, res);
+        register(req);
     });
 
 router.route('/login')
@@ -21,7 +21,12 @@ router.route('/login')
         res.sendFile(__dirname + '/templates/login.html');
     })
     .post(function (req: any, res: any) {
-
+        login(req, function (result) {
+            if (!result.error) {
+                res.cookie(result, 60000);
+            }
+            res.json(result);
+        });
     });
 router.route('/404')
     .get(function (req: any, res: any) {
@@ -48,7 +53,7 @@ router.route('/message')
     .post(function (req: any, res: any) {
         create
     });
-router.get('*', function(req, res){
+router.get('*', function (req, res) {
     res.sendFile(__dirname + '/templates/404.html');
 });
 
