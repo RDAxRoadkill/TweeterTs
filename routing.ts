@@ -1,5 +1,5 @@
 import express = require("express");
-import { index } from './controllers/message_controller';
+import { index, create } from './controllers/message_controller';
 let router = express.Router();
 import { register, login } from './controllers/auth_controller';
 
@@ -28,7 +28,22 @@ router.route('/login')
             res.json(result);
         });
     });
+router.route('/404')
+    .get(function (req: any, res: any) {
+        res.sendFile(__dirname + '/templates/404.html');
+    })
+    .post(function (req: any, res: any) {
 
-router.get('/message', index);
+    });
+router.route('/message')
+    .get(function (req: any, res: any) {
+        index(req, res)
+    })
+    .post(function (req: any, res: any) {
+        create
+    });
+router.get('*', function (req, res) {
+    res.sendFile(__dirname + '/templates/404.html');
+});
 
 export default router;
