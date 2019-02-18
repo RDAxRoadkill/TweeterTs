@@ -23,8 +23,10 @@ router.route('/login')
     .post(function (req: any, res: any) {
         login(req, function (result) {
             if (!result.error) {
-                res.cookie(result, 60000);
+                console.log('Cookies: ', req.cookies)
+                res.cookie('hitormiss', result,  { maxAge: 60000});
             }
+            console.log('Cookies: ', req.cookies)
             res.json(result);
         });
     });
