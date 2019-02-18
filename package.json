@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "mocha --require ts-node/register test/**/*.ts",
-    "start": "npm install && nodemon -e json, ts"
+    "start": "nodemon -e json, ts"
   },
   "repository": {
     "type": "git",

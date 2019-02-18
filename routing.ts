@@ -1,5 +1,5 @@
 import express = require("express");
-import {index, create} from './controllers/message_controller';
+import {list, create} from './controllers/message_controller';
 let router = express.Router();
 import { register } from './controllers/auth_controller';
 
@@ -30,9 +30,20 @@ router.route('/404')
     .post(function (req: any, res: any) {
 
     });
+router.route('/send')
+    .get(function (req: any, res: any, next: any){
+        res.sendFile(__dirname + '/templates/message.html');
+    })
+    .post(function (req: any, res: any) {
+        console.log("post called")
+        create(req, res, function(){
+            console.log("inside create")
+            res.redirect('/message');
+        })
+    });
 router.route('/message')
-    .get(function (req: any, res: any) {
-        index(req, res)
+    .get(function (req: any, res: any, next: any) {
+        list(req, res, next)
     })
     .post(function (req: any, res: any) {
         create

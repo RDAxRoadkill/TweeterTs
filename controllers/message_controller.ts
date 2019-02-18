@@ -1,17 +1,24 @@
 import Message from '../models/message';
 
-export function index(req, res, next) {
-    Message.find({})
-        .then(messages => res.send(messages))
-        .catch(next);
+export function list(req, res, next) {
+    Message.find({
+    }, function(err, data: any) {
+        if(err) {
+            console.log(err)
+        }
+        console.log(data)
+        res.send(data)
+    })
 }
 
-export function create(req, res) {
+export function create(req, res, cb) {
     const messageProps = {
-        message: req.body.title
+        username: req.body.username,
+        message: req.body.message
       };
-
+      console.log(messageProps)
       Message.create(messageProps)
       .then(message => res.send(message))
       .catch();
+      cb();
 }
