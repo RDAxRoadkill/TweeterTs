@@ -1,11 +1,12 @@
 import express = require("express");
-import {list, create} from './controllers/message_controller';
+import { list, create } from './controllers/message_controller';
 let router = express.Router();
 import { register, login } from './controllers/auth_controller';
 
+
 router.route('/')
     .get(function (req: any, res: any) {
-        console.log("First");
+        res.redirect('/message');
     });
 
 router.route('/register')
@@ -24,10 +25,10 @@ router.route('/login')
         login(req, function (result) {
             if (!result.error) {
                 console.log('Cookies: ', req.cookies)
-                res.cookie('hitormiss', result,  { maxAge: 60000});
+                res.cookie('hitormiss', result, { maxAge: 60000 });
             }
             console.log('Cookies: ', req.cookies)
-            res.json(result);
+            res.redirect('/message');
         });
     });
 router.route('/404')
@@ -38,12 +39,17 @@ router.route('/404')
 
     });
 router.route('/send')
-    .get(function (req: any, res: any, next: any){
-        res.sendFile(__dirname + '/templates/message.html');
+    .get(function (req: any, res: any, next: any) {
+        if (req.cookies.hitormiss) {
+            console.log(req.cookies);
+            res.sendFile(__dirname + '/templates/message.html');
+        } else {
+            res.redirect('/login');
+        }
     })
     .post(function (req: any, res: any) {
         console.log("post called")
-        create(req, res, function(){
+        create(req, res, function () {
             console.log("inside create")
             res.redirect('/message');
         })

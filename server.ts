@@ -26,7 +26,6 @@ conn.once('open', () => {
 
 app.use(cookieParser())
 app.use(bodyparser.urlencoded({ extended: false }))
-
 // parse application/json
 app.use(bodyparser.json())
 app.use(routing);
