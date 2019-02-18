@@ -8,7 +8,7 @@ import routing from './routing';
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
 //local db
-const mongoUrl = 'mongodb://localhost/tweeter'
+const mongoUrl = 'mongodb://localhost/tweeters'
 
 mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
