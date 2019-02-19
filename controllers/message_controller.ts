@@ -13,14 +13,15 @@ export function list(req, res, next) {
 }
 
 export function create(req, res, cb) {
-    console.log(req.cookies.username)
-    const messageProps = {
-        username: req.cookies.hitormiss.username,
-        message: req.body.message
-    };
-    console.log(messageProps)
-    Message.create(messageProps)
-        .then(message => res.send(message))
-        .catch();
-    cb();
+    User.findById(req.cookies.hitormiss.id, function (err, data: any) {
+        const messageProps = {
+            username: data.username,
+            message: req.body.message
+        };
+        console.log(messageProps)
+        Message.create(messageProps)
+            .then(message => res.send(message))
+            .catch();
+        cb();
+    })
 }
