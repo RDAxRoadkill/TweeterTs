@@ -7,13 +7,8 @@ export function list(req, res, next) {
         if (err) {
             console.log(err)
         }
-        console.log(data)
-        var body = "<body>"
-        for (let i = 0; i < data.length; i++) {
-            body += "<p>" + data[i].message + "</p>";
-        }
-        body += "</body>"
-        res.send(body);
+
+        res.json(data);
     })
 }
 
