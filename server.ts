@@ -1,13 +1,14 @@
 import express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser')
 import bodyparser = require('body-parser');
 import routing from './routing';
 
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
 //local db
-const mongoUrl = 'mongodb://localhost/tweeter'
+const mongoUrl = 'mongodb://localhost/tweeters'
 
 mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
@@ -23,9 +24,8 @@ conn.once('open', () => {
     console.log('MongoDB connected.')
 });
 
-
+app.use(cookieParser())
 app.use(bodyparser.urlencoded({ extended: false }))
-
 // parse application/json
 app.use(bodyparser.json())
 app.use(routing);

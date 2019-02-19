@@ -1,11 +1,12 @@
 import express = require("express");
-import {index, create} from './controllers/message_controller';
+import { list, create } from './controllers/message_controller';
 let router = express.Router();
-import { register } from './controllers/auth_controller';
+import { register, login } from './controllers/auth_controller';
+
 
 router.route('/')
     .get(function (req: any, res: any) {
-        console.log("First");
+        res.redirect('/message');
     });
 
 router.route('/register')
@@ -13,7 +14,7 @@ router.route('/register')
         res.sendFile(__dirname + '/templates/register.html');
     })
     .post(function (req: any, res: any) {
-        register(req, res);
+        register(req);
     });
 
 router.route('/login')
@@ -21,7 +22,14 @@ router.route('/login')
         res.sendFile(__dirname + '/templates/login.html');
     })
     .post(function (req: any, res: any) {
-
+        login(req, function (result) {
+            if (!result.error) {
+                console.log('Cookies: ', req.cookies)
+                res.cookie('hitormiss', result, { maxAge: 60000 });
+            }
+            console.log('Cookies: ', req.cookies)
+            res.redirect('/message');
+        });
     });
 router.route('/404')
     .get(function (req: any, res: any) {
@@ -30,14 +38,29 @@ router.route('/404')
     .post(function (req: any, res: any) {
 
     });
+router.route('/send')
+    .get(function (req: any, res: any, next: any) {
+        if (req.cookies.hitormiss) {
+            res.sendFile(__dirname + '/templates/message.html');
+        } else {
+            res.redirect('/login');
+        }
+    })
+    .post(function (req: any, res: any) {
+        console.log("post called")
+        create(req, res, function () {
+            console.log("inside create")
+            res.redirect('/message');
+        })
+    });
 router.route('/message')
-    .get(function (req: any, res: any) {
-        index(req, res)
+    .get(function (req: any, res: any, next: any) {
+        list(req, res, next)
     })
     .post(function (req: any, res: any) {
         create
     });
-router.get('*', function(req, res){
+router.get('*', function (req, res) {
     res.sendFile(__dirname + '/templates/404.html');
 });
 
