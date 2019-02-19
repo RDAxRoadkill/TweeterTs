@@ -17,8 +17,7 @@ export function login(req: any, cb: any) {
     }, function (err, data: any) {
         if (err == null) {
             let token = {
-                id: data[0].id,
-                username: data[0].username
+                id: data[0].id
             }
             cb(token);
         } else {
