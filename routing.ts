@@ -41,7 +41,6 @@ router.route('/404')
 router.route('/send')
     .get(function (req: any, res: any, next: any) {
         if (req.cookies.hitormiss) {
-            console.log(req.cookies);
             res.sendFile(__dirname + '/templates/message.html');
         } else {
             res.redirect('/login');

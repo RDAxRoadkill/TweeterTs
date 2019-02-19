@@ -13,8 +13,9 @@ export function list(req, res, next) {
 }
 
 export function create(req, res, cb) {
+    console.log(req.cookies.username)
     const messageProps = {
-        username: req.body.username,
+        username: req.cookies.hitormiss.username,
         message: req.body.message
     };
     console.log(messageProps)
